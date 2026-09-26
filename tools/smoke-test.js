@@ -9,9 +9,7 @@ const VARIANTS = {
   default: '',
   box9: "window.MEAGI.packaging = 'box9';",
   mascot: 'window.MEAGI.mascot = true;',
-  cup: "window.MEAGI.packaging = 'cup'; window.MEAGI.flavors.forEach(function (f) { f.shape = 'ball';"
-    + " f.photos = [1, 2, 3].map(function (n) { return 'assets/balls/' + f.id + '-' + n + '-288.webp'; });"
-    + " f.heroPhoto = 'assets/balls/' + f.id + '-1-640.webp'; f.shelfPhoto = 'assets/balls/' + f.id + '-3-640.webp'; });",
+  cup: "window.MEAGI.packaging = 'cup'; window.MEAGI.flavors.forEach(function (f) { f.shape = 'ball'; });",
 };
 const variant = process.argv[2] || 'default';
 const patch = VARIANTS[variant];

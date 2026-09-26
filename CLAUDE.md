@@ -10,13 +10,20 @@ The full kit is in Maai's Google Drive, in the folder "Meagi Brand Kit": 00 Appr
 
 ## Decisions
 - Everything the shop sells is set in `config.js`: per flavor the name, what it is, word, description, price, shape, dot color and photos; the words for each shape; the packaging types; the mascot switch. Keep it editable by a non-developer: plain comments, no logic.
-- Shapes: `with-hole`, `no-hole` and `ball`. In this prototype Golden Hour is a donut with a hole and the other three are donuts without a hole.
+- Shapes: `with-hole`, `no-hole` and `ball`.
+- Menu (27 Sep): Maai's real donuts from the photo shoot, in this order: Cream Meringue Donut (`no-hole`, yellow cream + crisp lattice meringue), Sugar-Coated Donut (`with-hole`, rolled in sugar) and Chocolate Donut Ball (`ball`, rolled in sugar, chocolate drizzle). Maai chose to let the donut ball go in the box too, so both boxes hold `ball`. The names are working names; descriptions only say what the photos show.
 - Packaging: `box6` (rectangular, 6 donuts, used now), `box9` (square, 9 donuts) and `cup` (clear plastic iced-coffee cup, 6 donut balls). A packaging holds as many pieces as it has `spots`. When it is full, a box closes its lid (the cup gets a skewer), then a fresh one slides in.
 - The page's words ("box", "donuts", "Fill your box", "Every box holds 6 donuts") come from config through `data-t` spans and app.js, so switching packaging or shapes needs no copy edits.
-- Sample prices per piece: Golden Hour ₱10, Cream Cheese ₱14, Matcha Cream Cheese ₱16, Pumpkin Spice Cream Cheese ₱16 (kept from the donut ball version; real prices to come).
-- "Golden Hour" is the fancy name for the classic glazed flavor.
+- Sample prices per piece: Cream Meringue Donut ₱16, Sugar-Coated Donut ₱10, Chocolate Donut Ball ₱12 (real prices to come).
 - Mea is switched off (`mascot: false`) while the new Mea is designed. While it is off, Mea must not show anywhere: that includes the logo (wordmark only) and the tab and home-screen icons (the coral mini donut from the wordmark). All Mea code and art stays for the return: swap the Mea symbols in index.html and the icons in `assets/brand/mea/`, then set `mascot: true`.
 - Public repo, published with GitHub Pages from `main`.
+
+## Photos (Meagi Web Photos v3, 27 Sep)
+- The donuts are real photos from the 13 Sep shoot; the tables, walls and baking tools are computer-made (3D). No toppings were added, so the photos only promise what customers get. Keep it that way: never describe or show a topping a donut doesn't have.
+- Hands only, no faces. No coral in the photos (coral stays for the one key button).
+- Menu photos: the pack's see-through cutouts, re-framed with `tools/frame-cutouts.js` into `assets/menu/` (400 and 800 px). Flavors with one photo also get a mirrored copy for variety on the trays.
+- `assets/photos/`: the bakery lineup scene (cream) behind "At the stall today", the "Made by hand" strip before the order form (three real process photos and the cooling rack scene), and the link-preview image (`og:image`).
+- The rest of the pack (studio shots, teal versions, the sugar-dusting scene) is not in the repo yet; ask Maai for the zip if a change needs it.
 
 ## Brand rules (Meagi Brand Kit v1.0)
 - Colors: Cream #FFF4E3 base (~60%), Meagi Teal #14A6A0 signature (~30%), Chocolate #3B2216 text, Deep Teal #0B6E69 for teal text on cream, Coral Pop #FF6B5A for ONE key thing per screen (here: the Checkout / Place my order button). Sprinkle colors #FFC93C #B49CF4 #FF9EC4 #FFFFFF are for illustrations only.
@@ -30,19 +37,20 @@ The full kit is in Maai's Google Drive, in the folder "Meagi Brand Kit": 00 Appr
 
 ## Code map
 - `config.js`: the settings above. Loaded in `<head>` without `defer`, so the mascot class, the mascot icons and the photo preloads are set before the page draws.
-- `index.html`: markup. Near the top: an inline SVG sprite (Mea parts, wordmarks `wm-ink` and `wm-white`, mini donut, icons, and the packaging drawings `box6-*`, `box9-*`, `cup-*`). The floating hero donuts and the shelves with their trays are built by app.js from config. `data-t` spans (`pack`, `packs`, `item`, `items`, `size`, `count`, `countword`) get their words from config; a capitalized key gives a capitalized word. `data-mascot` elements show only with the mascot on, `data-no-mascot` only with it off.
-- `styles.css`: design tokens at the top, then sections: buttons, pickable donuts, hero, marquee, stall/shelves/trays, packaging, dock (counter bar) with bubbles and tips, fly layer, order, footer, thank-you, states, responsive. `--pack-ratio`, `--pack-w` and `--hinge` are set by app.js.
+- `index.html`: markup, plus link-preview tags in `<head>`. Near the top: an inline SVG sprite (Mea parts, wordmarks `wm-ink` and `wm-white`, mini donut, icons, and the packaging drawings `box6-*`, `box9-*`, `cup-*`). The floating hero donuts and the shelves with their trays are built by app.js from config (with fewer than 4 flavors, the extra hero donuts use each flavor's next photo). Static photo sections: `.stall-intro` (photo behind the stall heading) and `.made` ("Made by hand"). `data-t` spans (`pack`, `packs`, `item`, `items`, `size`, `count`, `countword`) get their words from config; a capitalized key gives a capitalized word. `data-mascot` elements show only with the mascot on, `data-no-mascot` only with it off.
+- `styles.css`: design tokens at the top, then sections: buttons, pickable donuts, hero, marquee, stall (photo intro, shelves, trays), packaging, dock (counter bar) with bubbles and tips, fly layer, made by hand, order, footer, thank-you, states, responsive. `--pack-ratio`, `--pack-w` and `--hinge` are set by app.js.
 - `app.js`: one IIFE. Sections: helpers, settings, build the page from config, state, frame loop, packaging placement (hero to counter bar by scroll), hero/shelf/marquee scroll effects, Mea eye tracking and speech (tips when the mascot is off), packaging rendering, pick + fly + land, full packaging (lid or skewer, then the swap), drag (mouse via pointer events, touch via long-press), UI + order summary, form + thank-you, reveal observers, boot.
 - Packaging drawings are layers: `*-lid-open` (boxes), `*-back`, the pieces, `*-front`, then `*-lid` (boxes) or `*-topper` (cup). The symbol's viewBox gives the shape; `data-hinge` on `*-lid` is where the lid folds (percent from the top).
-- `assets/donuts/{glazed|cream|matcha|pumpkin}-{1|2|3}-{288|640}.webp`: 3D-rendered placeholder donuts (square, transparent, donut about 92% of the width, seen from 38° above).
-- `assets/balls/…`: the earlier donut ball placeholders, for shape `ball` and the cup. Variant 2 has no 640 size.
+- `assets/menu/`: the menu photos (square, see-through, donut 88% of the width, centered a little below the middle). `assets/photos/`: the scene and process photos.
 - `assets/brand/`: tab and home-screen icons (coral mini donut); `assets/brand/mea/`: the Mea versions.
-- `tools/`: `donuts/` renders the placeholder donuts (three.js in headless Chromium), `pack-art.js` draws the packaging symbols into index.html, `smoke-test.js` is the automated test below. See `tools/README.md`.
+- `tools/`: `frame-cutouts.js` frames a new cutout for the menu, `pack-art.js` draws the packaging symbols into index.html, `smoke-test.js` is the automated test below, `donuts/` renders 3D placeholder donuts (for trying a flavor before it has photos). See `tools/README.md`.
 
 ## Gotchas
 - The frame loop sleeps when idle. `tick()` can call `wake()`, so `frame()` must never queue a second requestAnimationFrame (it checks `if (raf) return`).
 - Touch drag: a 200 ms press-and-hold starts the drag; `touchmove` listeners on the donut buttons are non-passive so the page doesn't scroll mid-drag. A quick swipe on a donut must still scroll the page.
 - Field validation on blur waits 260 ms, so an error line doesn't push the submit button down while it's being tapped.
+- Menu photos must be framed like the others (`tools/frame-cutouts.js`): the box spots assume the donut is centered in its square; a donut sitting low hides behind the box's front wall.
+- `.stall-intro` gets an explicit `height`. With `aspect-ratio` plus `max-height`, the browser narrows the section instead and the photo stops short of the right edge.
 - `spots` are designed for their drawing. If a packaging drawing changes, re-check its spots (`node tools/pack-art.js` prints suggestions; the ones in config are a little bigger so the donuts look packed).
 - `.pack-items` has `isolation: isolate`, so the front of the packaging stays in front of the pieces (pieces carry z-indexes).
 - When a full box is swapped for a fresh one, `.is-swapping` turns transitions off so the new lid doesn't animate open.
@@ -55,5 +63,5 @@ Serve the folder (`python3 -m http.server 8765`) and run `node tools/smoke-test.
 ## Next steps
 - The new Mea, then `mascot: true`.
 - Send orders somewhere (for example a Google Sheet) and show real pickup days and times.
-- Swap in real photos and real prices.
+- Final flavor names and real prices.
 - A parent or guardian owns the page and the order inbox.

@@ -4,9 +4,9 @@ A mobile-first order page prototype for Meagi donuts. Customers "pick up" donuts
 
 **Live page:** https://mcosinas.github.io/meagi-order-page-proto/
 
-![Three phone screens: the stall with the open Meagi box, a matcha donut being dragged into the box, and the thank-you screen](assets/preview.jpg)
+![Three phone screens: the stall with the open Meagi box, a cream meringue donut being dragged into the box, and the thank-you screen](assets/preview.jpg)
 
-**This is a prototype.** Prices are samples, the donut pictures are 3D-rendered placeholders, and the form doesn't send orders anywhere yet.
+**This is a prototype.** The flavor names are working names, the prices are samples, and the form doesn't send orders anywhere yet.
 
 ## How it works
 
@@ -15,7 +15,7 @@ A mobile-first order page prototype for Meagi donuts. Customers "pick up" donuts
 - Each box holds 6. When a box is full, the lid closes and a fresh box slides in.
 - Tap **Checkout**, check your boxes (tap a donut to take it out, or use − and +), enter your name and mobile number, then tap **Place my order**.
 
-The flavors: **Golden Hour** (classic glazed, a donut with a hole), **Cream Cheese**, **Matcha Cream Cheese** and **Pumpkin Spice Cream Cheese** (donuts without a hole).
+The donuts: **Cream Meringue Donut** (yellow cream and a crisp lattice meringue), **Sugar-Coated Donut** (a donut with a hole, rolled in sugar) and **Chocolate Donut Ball** (rolled in sugar, with a chocolate drizzle).
 
 ## Change things
 
@@ -32,9 +32,18 @@ Almost everything is in **`config.js`**. Open it, change the words or numbers, s
 
 The words on the page follow the packaging and the shapes by themselves. With the cup it says "Fill your cup" and "donut balls"; with a box it says "Fill your box" and "donuts".
 
-**Donut photos.** Square pictures with a transparent background, the donut in the middle filling about 90% of the width. Each flavor has 3 small ones (288 px, for the trays and the box) and 2 big ones (640 px). The placeholders are in `assets/donuts/`, and the donut ball ones are in `assets/balls/`.
-
 **Packaging.** A box holds as many donuts as it has `spots` in `config.js`. The drawings of the boxes and the cup are in `index.html`.
+
+## Photos
+
+The page uses **Meagi Web Photos v3**: your real donuts from the photo shoot.
+
+- **Menu** (the trays, the box, the shelves): the see-through cutouts, framed alike in `assets/menu/`, 400 and 800 px. For a new donut, run `node tools/frame-cutouts.js <cutout.png> assets/menu/<name>` so it sits in the trays and the box like the others.
+- **"At the stall today"** sits on the bakery lineup scene (the cream one), whose wall matches the page.
+- **"Made by hand"**, just before the order form, shows the real hands-at-work photos and the cooling rack scene.
+- **Link previews** (Messenger, Facebook) show the cooling rack photo.
+
+These are in `assets/photos/`. The other photos in the pack (studio shots, the teal versions, the sugar-dusting scene) are ready for later.
 
 ## Mea, the mascot
 
@@ -52,6 +61,6 @@ Built with the Meagi Brand Kit v1.0: a cream base, Meagi Teal as the signature, 
 
 ## Before going live
 
+- Final flavor names and real prices.
 - Send orders somewhere (for example a Google Sheet) and show real pickup days and times.
-- Swap in real photos and real prices.
 - A parent or guardian should own the page and the order inbox.

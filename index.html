@@ -7,6 +7,14 @@
 <title>Meagi Donut Stall</title>
 <meta name="description" content="Pick soft, loaded Meagi donuts and place a pre-order. Prototype with sample prices.">
 <meta name="theme-color" content="#FFF4E3">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Meagi Donut Stall">
+<meta property="og:description" content="Pick soft, loaded Meagi donuts and place a pre-order. Prototype with sample prices.">
+<meta property="og:image" content="https://mcosinas.github.io/meagi-order-page-proto/assets/photos/meagi-cooling-rack-3x2-1200.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="800">
+<meta property="og:image:alt" content="Three Meagi donuts on a wire cooling rack on a wooden table">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,7 +85,7 @@
     </div>
     <div class="hero-foot">
       <p class="hint"><svg class="i" aria-hidden="true"><use href="#i-tap"/></svg> <span>Tap a <span data-t="item">donut</span> to drop it in your <span data-t="pack">box</span>, or hold and drag it.</span></p>
-      <a class="scroll-cue" href="#stall"><span>See all <span data-t="count">4</span> flavors</span><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="scroll-cue" href="#stall"><span>See all <span data-t="count">3</span> flavors</span><svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
   </div>
 </header>
@@ -92,10 +100,16 @@
 </div>
 
 <main class="stall" id="stall">
-  <div class="wrap stall-intro">
-    <p class="eyebrow">At the stall today</p>
-    <h2 class="stall-title"><span data-t="Countword">Four</span> flavors, one&nbsp;<span data-t="pack">box</span>.</h2>
-    <p class="stall-sub">Every <span data-t="pack">box</span> holds <span data-t="size">6</span> <span data-t="items">donuts</span>. When one fills up, we start you a fresh <span data-t="pack">box</span>.</p>
+  <div class="stall-intro">
+    <picture class="stall-photo">
+      <source media="(min-width: 720px)" srcset="assets/photos/meagi-hero-bakery-lineup-desktop-cream-1280.webp 1280w, assets/photos/meagi-hero-bakery-lineup-desktop-cream-1920.webp 1920w" sizes="100vw">
+      <img src="assets/photos/meagi-hero-bakery-lineup-mobile-cream-720.webp" srcset="assets/photos/meagi-hero-bakery-lineup-mobile-cream-720.webp 720w, assets/photos/meagi-hero-bakery-lineup-mobile-cream-1080.webp 1080w" sizes="100vw" width="1080" height="1920" alt="" loading="lazy" decoding="async">
+    </picture>
+    <div class="wrap stall-intro-copy">
+      <p class="eyebrow">At the stall today</p>
+      <h2 class="stall-title"><span data-t="Countword">Three</span> flavors, one&nbsp;<span data-t="pack">box</span>.</h2>
+      <p class="stall-sub">Every <span data-t="pack">box</span> holds <span data-t="size">6</span> <span data-t="items">donuts</span>. When one fills up, we start you a fresh <span data-t="pack">box</span>.</p>
+    </div>
   </div>
   <!-- One shelf per flavor, built from config.js -->
   <div id="shelves"></div>
@@ -111,6 +125,32 @@
     <span>Share the <span data-t="pack">box</span></span><svg class="md"><use href="#mini-donut"/></svg>
   </div></div>
 </div>
+
+<section class="made" aria-labelledby="made-title">
+  <div class="wrap">
+    <p class="eyebrow">How we make them</p>
+    <h2 class="made-title" id="made-title">Made by hand, with care.</h2>
+    <p class="made-sub">Every batch is fried, topped and finished by hand.</p>
+  </div>
+  <div class="made-strip" tabindex="0" role="region" aria-label="Photos: how we make them">
+    <figure class="made-card">
+      <img src="assets/photos/meagi-fresh-donuts-basket-4x5-540.webp" srcset="assets/photos/meagi-fresh-donuts-basket-4x5-540.webp 540w, assets/photos/meagi-fresh-donuts-basket-4x5-1080.webp 1080w" sizes="(min-width: 960px) 270px, 70vw" width="1080" height="1350" alt="Freshly fried golden donuts in a wire basket with tongs" loading="lazy" decoding="async">
+      <figcaption>Fresh out of the fryer</figcaption>
+    </figure>
+    <figure class="made-card">
+      <img src="assets/photos/meagi-hands-finishing-meringue-donuts-4x5-540.webp" srcset="assets/photos/meagi-hands-finishing-meringue-donuts-4x5-540.webp 540w, assets/photos/meagi-hands-finishing-meringue-donuts-4x5-1080.webp 1080w" sizes="(min-width: 960px) 270px, 70vw" width="1080" height="1350" alt="Gloved hands finishing donuts topped with cream and torched meringue" loading="lazy" decoding="async">
+      <figcaption>Cream and meringue, added by hand</figcaption>
+    </figure>
+    <figure class="made-card">
+      <img src="assets/photos/meagi-hand-picking-sugar-donut-4x5-540.webp" srcset="assets/photos/meagi-hand-picking-sugar-donut-4x5-540.webp 540w, assets/photos/meagi-hand-picking-sugar-donut-4x5-1080.webp 1080w" sizes="(min-width: 960px) 270px, 70vw" width="1080" height="1350" alt="A gloved hand picking a sugar-coated donut from a tray" loading="lazy" decoding="async">
+      <figcaption>Sugar-coated, picked by hand</figcaption>
+    </figure>
+    <figure class="made-card">
+      <img src="assets/photos/meagi-cooling-rack-4x5-540.webp" srcset="assets/photos/meagi-cooling-rack-4x5-540.webp 540w, assets/photos/meagi-cooling-rack-4x5-1080.webp 1080w" sizes="(min-width: 960px) 270px, 70vw" width="1080" height="1350" alt="Three donuts on a wire cooling rack on a wooden table, with eggs, a mixing bowl and a striped kitchen towel" loading="lazy" decoding="async">
+      <figcaption>All three, ready for your box</figcaption>
+    </figure>
+  </div>
+</section>
 
 <section class="order" id="order" aria-labelledby="order-title">
   <div class="wrap order-grid">

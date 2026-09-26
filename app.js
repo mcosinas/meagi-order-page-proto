@@ -42,6 +42,8 @@
   });
   const SHAPES = C.shapes || {};
   const nounOf = (f, many) => { const s = SHAPES[f.shape] || { one: 'donut', many: 'donuts' }; return many ? s.many : s.one; };
+  // "Golden Hour donut", but "Chocolate Donut Ball" when the name already says what it is
+  const fullName = (f) => (f.name.toLowerCase().endsWith(nounOf(f).toLowerCase()) ? f.name : `${f.name} ${nounOf(f)}`);
   const rolls = (f) => f.shape === 'ball'; // donut balls roll and spin; flat donuts slide and wobble
   const photosOf = (f) => (f.photos && f.photos.length ? f.photos : [f.heroPhoto || f.shelfPhoto]);
   const photo = (fid, i) => { const p = photosOf(FL[fid]); return p[((i % p.length) + p.length) % p.length]; };
@@ -70,12 +72,16 @@
   document.title = `Meagi ${W.item.split(' ').map(cap).join(' ')} Stall`;
 
   const pickButton = (f, i, cls, size, src, extra = '') =>
-    `<button class="pick ${cls}" type="button" data-flavor="${esc(f.id)}" data-photo="${i}" aria-label="Add a ${esc(f.name)} ${esc(nounOf(f))} to your ${esc(W.pack)}"${extra}>`
+    `<button class="pick ${cls}" type="button" data-flavor="${esc(f.id)}" data-photo="${i}" aria-label="Add a ${esc(fullName(f))} to your ${esc(W.pack)}"${extra}>`
     + `<span class="bob"><img src="${esc(src)}" width="${size}" height="${size}" alt="" draggable="false" decoding="async"${size < 640 ? ' loading="lazy"' : ''}></span></button>`;
 
-  // up to 4 pieces float at the top of the page, one per flavor
-  $('#hero-items').innerHTML = [0, 1, 2, 3].map((i) => FLAVORS[i % FLAVORS.length]).filter(Boolean)
-    .map((f, i) => pickButton(f, 0, `hero-item hi-${i + 1}`, 640, f.heroPhoto || photosOf(f)[0], ` style="--i:${i}"`)).join('');
+  // 4 pieces float at the top of the page, one per flavor; with fewer flavors, the next photo of each
+  $('#hero-items').innerHTML = [0, 1, 2, 3].filter(() => FLAVORS.length).map((i) => {
+    const f = FLAVORS[i % FLAVORS.length];
+    const round = Math.floor(i / FLAVORS.length);
+    const src = round === 0 ? (f.heroPhoto || photosOf(f)[0]) : photo(f.id, round);
+    return pickButton(f, round % photosOf(f).length, `hero-item hi-${i + 1}`, 640, src, ` style="--i:${i}"`);
+  }).join('');
 
   // one shelf per flavor; the tray shows the flavor's photos in this order
   const TRAY = [0, 1, 2, 1, 2, 0];

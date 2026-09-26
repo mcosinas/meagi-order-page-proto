@@ -13,80 +13,61 @@ window.MEAGI = {
   packaging: 'box6',
 
   // ------------------------------------------------------------------ flavors
-  // In the order they appear on the page. The first 4 also float at the top of the page.
+  // In the order they appear on the page. The first ones also float at the top of the page.
+  // The names are working names and the prices are samples: change them here.
   // shape: 'with-hole' (a donut with a hole), 'no-hole' (a donut without a hole) or 'ball' (a donut ball).
-  // photos: square pictures, about 288 px, transparent background, donut in the middle filling about
-  //   90% of the width. Used on the trays and in the packaging, one after the other.
-  // heroPhoto / shelfPhoto: the same kind of picture at about 640 px, for the big spots.
-  // Donut ball pictures (for shape 'ball' and the cup) are in assets/balls/, named the same way.
+  // photos: square pictures, about 400 px, see-through background, donut in the middle filling about
+  //   90% of the width with its bottom near the bottom edge. Used on the trays and in the box, in turn.
+  // heroPhoto / shelfPhoto: the same kind of picture at about 800 px, for the big spots.
+  // The photos are the real donuts from the photo shoot (Meagi Web Photos v3), framed alike in assets/menu/.
   flavors: [
     {
-      id: 'glazed',                     // short code: small letters, no spaces
-      name: 'Golden Hour',              // fun name
-      what: 'Classic glazed',           // what it is (small line above the name)
-      word: 'Golden',                   // big faded word behind the shelf photo
-      desc: 'Our classic glazed. Soft, fluffy and shiny all over.',
-      price: 10,                        // pesos per piece
+      id: 'meringue',                   // short code: small letters, no spaces
+      name: 'Cream Meringue Donut',     // name (working name)
+      what: 'Yellow cream + meringue',  // what it is (small line above the name)
+      word: 'Meringue',                 // big faded word behind the shelf photo
+      desc: 'A soft donut topped with yellow cream and a crisp lattice meringue.',
+      price: 16,                        // pesos per piece (sample)
+      shape: 'no-hole',
+      color: '#F4C542',                 // this flavor's dot in the counter bar
+      photos: [
+        'assets/menu/cream-meringue-1-400.webp',
+        'assets/menu/cream-meringue-2-400.webp',
+      ],
+      heroPhoto: 'assets/menu/cream-meringue-1-800.webp',
+      shelfPhoto: 'assets/menu/cream-meringue-2-800.webp',
+    },
+    {
+      id: 'sugar',
+      name: 'Sugar-Coated Donut',
+      what: 'Classic, rolled in sugar',
+      word: 'Sugar',
+      desc: 'A soft donut rolled in sugar all over.',
+      price: 10,
       shape: 'with-hole',
-      color: '#D9953F',                 // this flavor's dot in the counter bar
+      color: '#9A5B2E',
       photos: [
-        'assets/donuts/glazed-1-288.webp',
-        'assets/donuts/glazed-2-288.webp',
-        'assets/donuts/glazed-3-288.webp',
+        'assets/menu/sugar-donut-1-400.webp',
+        'assets/menu/sugar-donut-2-400.webp',
       ],
-      heroPhoto: 'assets/donuts/glazed-1-640.webp',
-      shelfPhoto: 'assets/donuts/glazed-3-640.webp',
+      heroPhoto: 'assets/menu/sugar-donut-1-800.webp',
+      shelfPhoto: 'assets/menu/sugar-donut-trio-800.webp',
     },
     {
-      id: 'cream',
-      name: 'Cream Cheese',
-      what: 'Tangy and creamy',
-      word: 'Cream',
-      desc: 'Loaded with smooth, tangy cream cheese.',
-      price: 14,
-      shape: 'no-hole',
-      color: '#FFF6E8',
+      id: 'choco',
+      name: 'Chocolate Donut Ball',
+      what: 'Chocolate + sugar',
+      word: 'Choco',
+      desc: 'A chocolate donut ball rolled in sugar, with a chocolate drizzle.',
+      price: 12,
+      shape: 'ball',
+      color: '#4B2A1E',
       photos: [
-        'assets/donuts/cream-1-288.webp',
-        'assets/donuts/cream-2-288.webp',
-        'assets/donuts/cream-3-288.webp',
+        'assets/menu/chocolate-ball-1-400.webp',
+        'assets/menu/chocolate-ball-2-400.webp',
       ],
-      heroPhoto: 'assets/donuts/cream-1-640.webp',
-      shelfPhoto: 'assets/donuts/cream-3-640.webp',
-    },
-    {
-      id: 'matcha',
-      name: 'Matcha Cream Cheese',
-      what: 'Matcha + cream cheese',
-      word: 'Matcha',
-      desc: 'Earthy matcha meets tangy cream cheese.',
-      price: 16,
-      shape: 'no-hole',
-      color: '#86A94A',
-      photos: [
-        'assets/donuts/matcha-1-288.webp',
-        'assets/donuts/matcha-2-288.webp',
-        'assets/donuts/matcha-3-288.webp',
-      ],
-      heroPhoto: 'assets/donuts/matcha-1-640.webp',
-      shelfPhoto: 'assets/donuts/matcha-3-640.webp',
-    },
-    {
-      id: 'pumpkin',
-      name: 'Pumpkin Spice Cream Cheese',
-      what: 'Pumpkin spice + cream cheese',
-      word: 'Pumpkin',
-      desc: 'Warm pumpkin spice with tangy cream cheese.',
-      price: 16,
-      shape: 'no-hole',
-      color: '#EFA052',
-      photos: [
-        'assets/donuts/pumpkin-1-288.webp',
-        'assets/donuts/pumpkin-2-288.webp',
-        'assets/donuts/pumpkin-3-288.webp',
-      ],
-      heroPhoto: 'assets/donuts/pumpkin-1-640.webp',
-      shelfPhoto: 'assets/donuts/pumpkin-3-640.webp',
+      heroPhoto: 'assets/menu/chocolate-ball-1-800.webp',
+      shelfPhoto: 'assets/menu/chocolate-ball-1-800.webp',
     },
   ],
 
@@ -112,7 +93,7 @@ window.MEAGI = {
     box6: {
       name: 'box',
       plural: 'boxes',
-      holds: ['with-hole', 'no-hole'],
+      holds: ['with-hole', 'no-hole', 'ball'],
       art: 'box6',
       heroWidth: 0.56,
       dockWidth: 78,
@@ -128,7 +109,7 @@ window.MEAGI = {
     box9: {
       name: 'box',
       plural: 'boxes',
-      holds: ['with-hole', 'no-hole'],
+      holds: ['with-hole', 'no-hole', 'ball'],
       art: 'box9',
       heroWidth: 0.46,
       dockWidth: 70,

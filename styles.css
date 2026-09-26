@@ -189,7 +189,10 @@ html.is-dragging, html.is-dragging * { cursor: grabbing !important; }
 
 /* ------------------------------------------------------------------ stall */
 .stall { position: relative; padding-bottom: 20px; }
-.stall-intro { padding-top: 44px; }
+/* the intro sits on the real bakery-lineup photo; its wall is exactly Meagi Cream, text stays on the wall */
+.stall-intro { position: relative; height: min(177.8vw, 900px); overflow: hidden; border-bottom: 3px solid var(--ink); }
+.stall-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
+.stall-intro-copy { position: relative; padding-top: 44px; }
 .stall-title { margin: 8px 0 8px; font: 700 clamp(34px, 10vw, 60px)/.98 var(--f-display); text-wrap: balance; }
 .stall-sub { margin: 0; max-width: 40ch; font-size: 17px; }
 
@@ -342,6 +345,24 @@ html.is-dragging, html.is-dragging * { cursor: grabbing !important; }
 }
 .spark { position: absolute; left: 0; top: 0; width: 14px; height: 5px; border-radius: 5px; }
 
+/* ------------------------------------------------------------------ made by hand (the real process photos) */
+.made { padding-block: 52px 44px; }
+.made-title { margin: 8px 0 8px; font: 700 clamp(34px, 10vw, 60px)/.98 var(--f-display); text-wrap: balance; }
+.made-sub { margin: 0; max-width: 40ch; font-size: 17px; }
+.made-strip {
+  display: flex; gap: 14px; margin-top: 24px; padding: 2px var(--gutter) 12px;
+  overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter);
+  scrollbar-width: none; overscroll-behavior-x: contain;
+}
+.made-strip::-webkit-scrollbar { display: none; }
+.made-strip:focus-visible { outline-offset: -3px; }
+.made-card { flex: none; width: min(70vw, 300px); margin: 0; scroll-snap-align: start; }
+.made-card img {
+  display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover;
+  border: 2.5px solid var(--ink); border-radius: 24px; box-shadow: 0 5px 0 var(--ink); background: #E8D9C2;
+}
+.made-card figcaption { margin-top: 12px; font: 800 15px/1.3 var(--f-body); }
+
 /* ------------------------------------------------------------------ order */
 .order { position: relative; padding-block: 52px calc(var(--dock-space) + 28px); background: var(--paper); border-top: 3px solid var(--ink); }
 .order-grid { display: grid; gap: 22px; }
@@ -468,6 +489,9 @@ html.has-mascot [data-no-mascot] { display: none !important; }
 
 /* ------------------------------------------------------------------ larger screens */
 @media (min-width: 720px) {
+  .stall-intro { height: min(56.25vw, 700px); }
+  .stall-photo img { object-position: 100% 100%; }
+  .stall-intro-copy { padding-top: clamp(44px, 6vw, 84px); }
   .hero-foot { margin-top: 56px; }
   .shelf-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 460px); gap: 14px 40px; align-items: end; }
   .shelf-body .tray { margin-top: 0; }
@@ -487,6 +511,8 @@ html.has-mascot [data-no-mascot] { display: none !important; }
   .shelf-r .shelf-hero, .shelf-l .shelf-hero { left: 50%; right: auto; margin-left: -180px; }
   .shelf-body { display: block; }
   .shelf-body .tray { margin-top: 20px; }
+  .made-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 1120px; margin-inline: auto; overflow: visible; }
+  .made-card { width: auto; }
   .order-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); column-gap: 48px; align-items: start; }
   .order-head { grid-column: 1 / -1; }
   .order-form { position: sticky; top: 24px; }
