@@ -1,0 +1,8 @@
+{
+  "name": "meagi-donut-renders",
+  "private": true,
+  "description": "Renders the placeholder donut photos (not needed to run the order page).",
+  "dependencies": {
+    "three": "0.186.1"
+  }
+}

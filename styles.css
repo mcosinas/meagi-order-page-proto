@@ -1,6 +1,7 @@
-/* Meagi · donut ball stall (order page prototype)
+/* Meagi · donut stall (order page prototype)
    Brand: Meagi Brand Kit v1.0 (Style Guide 04). Cream base, teal signature, chocolate text,
-   one coral pop per screen (the checkout button). Fredoka for headlines, Nunito for text and prices. */
+   one coral pop per screen (the checkout button). Fredoka for headlines, Nunito for text and prices.
+   Sizes that depend on the packaging (--pack-ratio, --pack-w, --hinge) are set by app.js from config.js. */
 
 :root {
   color-scheme: light;
@@ -78,24 +79,24 @@ button { font: inherit; color: inherit; }
 .btn-cream { background: var(--cream); color: var(--ink); box-shadow: 0 4px 0 var(--ink); }
 .btn-cream:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
 
-/* ------------------------------------------------------------------ donut ball buttons */
-.ball {
+/* ------------------------------------------------------------------ pickable donuts (hero and trays) */
+.pick {
   position: relative; display: block; padding: 0; border: 0; background: none;
   cursor: grab; touch-action: pan-y; isolation: isolate;
   -webkit-touch-callout: none; -webkit-user-select: none; user-select: none;
   border-radius: 50%;
 }
-.ball .bob { display: block; transform: translate3d(0, calc(var(--jy, 0) * var(--k, 1) * 1px), 0) scale(calc(1 + var(--sq, 0) * var(--k, 1)), calc(1 - var(--sq, 0) * var(--k, 1))); transform-origin: 50% 90%; }
-.ball img { display: block; width: 100%; height: auto; pointer-events: none; -webkit-user-drag: none; transition: transform .18s ease, opacity .12s; }
-.ball::after {
+.pick .bob { display: block; transform: translate3d(0, calc(var(--jy, 0) * var(--k, 1) * 1px), 0) scale(calc(1 + var(--sq, 0) * var(--k, 1)), calc(1 - var(--sq, 0) * var(--k, 1))); transform-origin: 50% 90%; }
+.pick img { display: block; width: 100%; height: auto; pointer-events: none; -webkit-user-drag: none; transition: transform .18s ease, opacity .12s; }
+.pick::after {
   content: ""; position: absolute; z-index: -1; left: 17%; right: 17%; bottom: 3%; height: 13%;
   border-radius: 50%; background: radial-gradient(closest-side, rgba(59, 34, 22, .42), rgba(59, 34, 22, 0));
   transition: opacity .2s;
 }
-.ball:hover img { transform: translateY(-3%) scale(1.03); }
-.ball:active img { transform: scale(.95); }
-.ball.is-taken img, .ball.is-taken::after { opacity: 0; transition: none; }
-.ball:focus-visible { outline-offset: 2px; }
+.pick:hover img { transform: translateY(-3%) scale(1.03); }
+.pick:active img { transform: scale(.95); }
+.pick.is-taken img, .pick.is-taken::after { opacity: 0; transition: none; }
+.pick:focus-visible { outline-offset: 2px; }
 html.is-dragging, html.is-dragging * { cursor: grabbing !important; }
 
 /* ------------------------------------------------------------------ hero */
@@ -116,6 +117,7 @@ html.is-dragging, html.is-dragging * { cursor: grabbing !important; }
 .hero-copy { padding-top: 14px; }
 .logo-link { display: inline-block; margin: 0 0 6px -12px; border-radius: 16px; }
 .logo { display: block; width: 172px; height: auto; }
+.logo-wm { width: 132px; margin: 12px 0 8px 12px; }
 .hero-title {
   margin: 8px 0 10px;
   font: 700 clamp(50px, 15.5vw, 96px)/.9 var(--f-display);
@@ -134,18 +136,18 @@ html.is-dragging, html.is-dragging * { cursor: grabbing !important; }
   animation: pop-in .9s .05s var(--ease-spring) both;
 }
 @keyframes pop-in { from { transform: scale(.6); } }
-.cup-anchor { position: absolute; left: 28%; bottom: 0; width: 44%; aspect-ratio: 120 / 130; }
-.hero-balls { position: absolute; inset: 0; }
-.hero-ball {
+.pack-anchor { position: absolute; left: calc((100% - var(--pack-w, 44%)) / 2); bottom: 0; width: var(--pack-w, 44%); aspect-ratio: 1 / var(--pack-ratio, 1.08); }
+.hero-items { position: absolute; inset: 0; }
+.hero-item {
   position: absolute; width: 25%;
   transform: translate3d(var(--dx, 0px), var(--dy, 0px), 0) rotate(var(--dr, 0deg));
 }
-.hero-ball .bob { animation: floaty var(--fd, 3.6s) ease-in-out infinite alternate; animation-delay: calc(var(--i) * -1.1s); }
-.hero-ball img { animation: pop-in .8s var(--ease-spring) both; animation-delay: calc(.25s + var(--i) * .09s); }
-.hb-1 { left: 1%; top: 19%; width: 27%; --fd: 3.4s; }
-.hb-2 { left: 24%; top: -1%; width: 26%; --fd: 4.1s; }
-.hb-3 { left: 52%; top: 2%; width: 25%; --fd: 3.7s; }
-.hb-4 { left: 73%; top: 25%; width: 26%; --fd: 4.4s; }
+.hero-item .bob { animation: floaty var(--fd, 3.6s) ease-in-out infinite alternate; animation-delay: calc(var(--i) * -1.1s); }
+.hero-item img { animation: pop-in .8s var(--ease-spring) both; animation-delay: calc(.25s + var(--i) * .09s); }
+.hi-1 { left: -2%; top: 14%; width: 27%; --fd: 3.4s; }
+.hi-2 { left: 22%; top: -2%; width: 26%; --fd: 4.1s; }
+.hi-3 { left: 51%; top: 0%; width: 25%; --fd: 3.7s; }
+.hi-4 { left: 75%; top: 18%; width: 26%; --fd: 4.4s; }
 @keyframes floaty {
   from { transform: translateY(-4%) rotate(-4deg); }
   to { transform: translateY(5%) rotate(5deg); }
@@ -237,31 +239,41 @@ html.is-dragging, html.is-dragging * { cursor: grabbing !important; }
   position: relative; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center;
   background: radial-gradient(circle at 50% 46%, #0A6D69 0 46%, #0C807B 58%, rgba(12, 128, 123, 0) 70%);
 }
-.well .ball { width: 100%; margin-top: -10%; }
+.well .pick { width: 100%; margin-top: -10%; }
 .tray-hint { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; font-size: 14.5px; font-weight: 700; color: var(--ink-2); }
 .tray-hint .i { color: var(--deep); }
 
-/* ------------------------------------------------------------------ the cup */
-.cup {
+/* ------------------------------------------------------------------ the packaging (box or cup) */
+.pack {
   position: fixed; left: 0; top: 0; z-index: 45;
-  width: 180px; aspect-ratio: 120 / 130;
+  width: 180px; aspect-ratio: 1 / var(--pack-ratio, 1.08);
   transform-origin: 0 0; pointer-events: none; will-change: transform;
 }
-.cup-body { position: absolute; inset: 0; transform-origin: 50% 100%; }
-.cup-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.cup-balls { position: absolute; inset: 0; }
-.cup-ball { position: absolute; width: 37%; height: auto; transform: translate(-50%, -50%) rotate(var(--r, 0deg)); }
-.cup-skewer { opacity: 0; transform: translate(-8%, 18%) rotate(-10deg); transform-origin: 52% 5%; transition: opacity .2s, transform .2s; }
-.cup.is-full .cup-skewer { opacity: 1; transform: none; transition: opacity .1s, transform .55s var(--ease-spring); }
-.cup.is-ready .cup-body { transform: scale(1.07); filter: drop-shadow(0 0 10px rgba(255, 201, 60, .95)); transition: transform .25s var(--ease-spring); }
-.cup-body { transition: transform .25s ease, filter .25s; }
-.cup-count {
+.pack-body { position: absolute; inset: 0; transform-origin: 50% 100%; transition: transform .25s ease, filter .25s; }
+.pack-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.pack-items { position: absolute; inset: 0; isolation: isolate; }
+.pack-item { position: absolute; height: auto; transform: translate(-50%, -50%) rotate(var(--r, 0deg)); }
+/* when it is full, a box folds its lid shut and a cup gets a skewer */
+.pack-lid-open, .pack-lid { transform-origin: 50% var(--hinge, 50%); }
+.pack-lid { transform: scaleY(0); transition: transform .15s ease-in; }
+.pack-lid-open { transition: transform .35s .1s var(--ease-spring); }
+.pack.is-full .pack-lid-open { transform: scaleY(0); transition: transform .22s ease-in; }
+.pack.is-full .pack-lid { transform: none; transition: transform .5s .2s var(--ease-spring); }
+.pack-topper { opacity: 0; transform: translate(-8%, 18%) rotate(-10deg); transform-origin: 52% 5%; transition: opacity .2s, transform .2s; }
+.pack.is-full .pack-topper { opacity: 1; transform: none; transition: opacity .1s, transform .55s var(--ease-spring); }
+.pack.is-swapping, .pack.is-swapping * { transition: none !important; }
+.pack.is-ready .pack-body { transform: scale(1.07); filter: drop-shadow(0 0 10px rgba(255, 201, 60, .95)); transition: transform .25s var(--ease-spring); }
+.pack-count {
   position: absolute; left: 50%; top: 100%; margin: 0; white-space: nowrap;
   transform: translate(-50%, 12px); opacity: var(--co, 1);
   padding: 5px 12px; border-radius: 999px; border: 2px solid var(--ink);
   background: var(--paper); font: 800 14px/1.2 var(--f-body);
 }
-.cup-count b { font-weight: 900; }
+.pack-count b { font-weight: 900; }
+/* a still picture of the packaging (order summary, empty order, thank-you): lid open */
+.pack-pic { position: relative; width: 100%; aspect-ratio: 1 / var(--pack-ratio, 1.08); }
+.pack-pic .pack-lid { display: none; }
+.pack-pic.is-full .pack-topper { opacity: 1; transform: none; }
 
 /* ------------------------------------------------------------------ dock (the counter) */
 .dock {
@@ -287,6 +299,8 @@ html.is-dragging, html.is-dragging * { cursor: grabbing !important; }
 .dots { display: inline-flex; gap: 3px; }
 .dots i { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--ink); background: transparent; }
 .dots i.on { transform: scale(1.12); }
+.dots.many { display: inline-grid; grid-template-columns: repeat(5, 7px); gap: 2px; }
+.dots.many i { width: 7px; height: 7px; border-width: 1.2px; }
 .dock-cta { min-height: 46px; padding: 10px 18px; font-size: 16px; }
 .dock-mea {
   position: absolute; z-index: 1; right: 30px; bottom: calc(76px + env(safe-area-inset-bottom, 0px));
@@ -311,6 +325,12 @@ html.is-dragging, html.is-dragging * { cursor: grabbing !important; }
 @keyframes bubble-in { from { transform: scale(.4) translateY(10px); opacity: 0; } }
 .bubble-dock { right: 88%; bottom: 40%; transform-origin: 100% 100%; }
 .bubble-hero { left: 4%; bottom: 97%; max-width: min(27vw, 150px); font-size: 14px; transform-origin: 20% 100%; }
+/* without the mascot, the same short lines show as tips pointing at the packaging */
+.tip { z-index: 50; pointer-events: none; }
+.tip-hero { left: -1%; bottom: 31%; max-width: min(34vw, 170px); font-size: 14px; transform-origin: 100% 70%; }
+.tip-hero::after { right: -8px; bottom: 14px; transform: rotate(-45deg); }
+.tip-dock { left: 2px; bottom: calc(100% + 34px); transform-origin: 20% 100%; }
+.tip-dock::after { left: 30px; bottom: -8px; transform: rotate(45deg); }
 
 /* ------------------------------------------------------------------ fly layer */
 .fly-layer { position: fixed; inset: 0; z-index: 60; pointer-events: none; overflow: hidden; }
@@ -328,20 +348,19 @@ html.is-dragging, html.is-dragging * { cursor: grabbing !important; }
 .order-title { margin: 6px 0 0; font: 700 clamp(40px, 12vw, 64px)/.95 var(--f-display); }
 .order-empty { display: flex; align-items: center; gap: 16px; padding: 18px; border: 2px dashed rgba(59, 34, 22, .3); border-radius: 26px; }
 .order-empty .mea { width: 92px; flex: none; height: auto; }
+.empty-pack { width: 96px; flex: none; }
 .order-empty p { margin: 0 0 4px; }
 .order-empty-title { font: 700 22px/1.1 var(--f-display); }
 .order-empty .btn { margin-top: 10px; min-height: 44px; padding: 9px 18px; font-size: 15.5px; }
 
-.order-cups { display: flex; gap: 16px; overflow-x: auto; padding: 44px 6px 8px; margin: -24px -6px 0; scroll-snap-type: x proximity; }
-.mcup { flex: none; width: 112px; margin: 0; scroll-snap-align: start; }
-.mcup-box { position: relative; width: 100%; aspect-ratio: 120 / 130; }
-.mcup-box .cup-balls { position: absolute; inset: 0; }
-.cb { position: absolute; width: 37%; padding: 0; border: 0; background: none; cursor: pointer; transform: translate(-50%, -50%) rotate(var(--r, 0deg)); border-radius: 50%; }
+.order-packs { display: flex; gap: 16px; overflow-x: auto; padding: 44px 6px 8px; margin: -24px -6px 0; scroll-snap-type: x proximity; }
+.mpack { flex: none; width: 118px; margin: 0; scroll-snap-align: start; }
+.cb { position: absolute; padding: 0; border: 0; background: none; cursor: pointer; transform: translate(-50%, -50%) rotate(var(--r, 0deg)); border-radius: 50%; }
+span.cb { cursor: default; }
 .cb img { display: block; width: 100%; height: auto; pointer-events: none; }
-.cb:hover img { transform: scale(1.08); }
-.mcup .cup-skewer { opacity: 1; transform: none; }
-.mcup figcaption { margin-top: 8px; text-align: center; font: 800 14px/1.3 var(--f-body); }
-.mcup figcaption span { display: block; font-weight: 700; color: var(--ink-2); }
+button.cb:hover img { transform: scale(1.08); }
+.mpack figcaption { margin-top: 8px; text-align: center; font: 800 14px/1.3 var(--f-body); }
+.mpack figcaption span { display: block; font-weight: 700; color: var(--ink-2); }
 .order-tip { margin: 2px 0 0; font-size: 14px; font-weight: 700; color: var(--ink-2); }
 
 .lines { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 10px; }
@@ -406,6 +425,8 @@ html.is-dragging, html.is-dragging * { cursor: grabbing !important; }
 .thanks-mea { width: min(46vw, 220px); margin: 4px auto -4px; }
 .thanks-mea .mea { width: 100%; height: auto; display: block; }
 .thanks.is-in .thanks-mea .mea { animation: love-pop 1s .25s var(--ease-spring) both; }
+.thanks-pack { width: min(56vw, 230px); margin: 18px auto 0; }
+.thanks.is-in .thanks-pack { animation: love-pop 1s .25s var(--ease-spring) both; }
 @keyframes love-pop { from { transform: scale(.3) rotate(-20deg); } }
 .thanks-title { margin: 0; text-align: center; color: #fff; font: 700 clamp(44px, 13vw, 76px)/.95 var(--f-display); text-wrap: balance; outline: none; }
 .thanks-lead { margin: 0 auto; max-width: 34ch; text-align: center; font-size: 18px; font-weight: 700; }
@@ -413,23 +434,27 @@ html.is-dragging, html.is-dragging * { cursor: grabbing !important; }
 .thanks-card { margin-top: 6px; padding: 18px 16px 18px; background: var(--cream); border: 2.5px solid var(--ink); border-radius: 28px; box-shadow: 0 6px 0 var(--ink); }
 .t-row { display: flex; justify-content: space-between; align-items: baseline; font-weight: 800; }
 .t-row b { font: 900 18px var(--f-body); letter-spacing: .04em; }
-.t-cups { display: flex; gap: 12px; overflow-x: auto; padding: 36px 2px 4px; }
-.t-cups .mcup { width: 92px; }
+.t-packs { display: flex; gap: 12px; overflow-x: auto; padding: 36px 2px 4px; }
+.t-packs .mpack { width: 96px; }
 .btn-cream { justify-self: center; margin-top: 8px; }
 .fine-on-teal { text-align: center; color: var(--ink); }
 
 /* ------------------------------------------------------------------ states and small pieces */
-.cup { visibility: hidden; }
-.js-ready .cup { visibility: visible; }
+.pack { visibility: hidden; }
+.js-ready .pack { visibility: visible; }
 .mea-blink { transform-box: fill-box; transform-origin: 50% 50%; animation: blink 5.5s infinite; }
 .mea[data-expr="wink"] .mea-blink, .mea[data-expr="love"] .mea-blink { animation: none; }
 @keyframes blink { 0%, 93%, 100% { transform: scaleY(1); } 95.5% { transform: scaleY(.08); } }
-.tray.pre .tray-ball img { transform: translateX(-170%) rotate(-340deg); }
-.cup-clone .cup-skewer { opacity: 1; transform: none; }
-.cup-clone .cup-body { position: absolute; inset: 0; }
+.tray.pre .tray-item img { transform: translateX(-170%); }
+.pack-clone .pack-body { position: absolute; inset: 0; }
+.pack-clone .pack-lid, .pack-clone .pack-topper { opacity: 1; transform: none; }
+.pack-clone .pack-lid-open { transform: scaleY(0); }
 .burst-layer { z-index: 110; }
-html.is-thanks .cup, html.is-thanks .dock { display: none; }
+html.is-thanks .pack, html.is-thanks .dock { display: none; }
 html.is-thanks body { overflow: hidden; }
+/* Mea, the mascot, is switched on and off in config.js (the page adds .has-mascot to <html>) */
+html:not(.has-mascot) [data-mascot] { display: none !important; }
+html.has-mascot [data-no-mascot] { display: none !important; }
 
 @media (max-width: 380px) {
   .dock { padding-inline: 8px; }
